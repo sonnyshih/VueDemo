@@ -6,36 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/styles.css" />
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
 
  </head>
 <body>
     <div id="app">
 
+        <!-- product-display component location -->
         <product-display></product-display>
         
         <!-- Event -->
         <div> Car({{cart}})</div>
         <button v-on:Click="cart += 1"> Add to Cart</button> <br>
-
-        
         
     </div><!--./ app-->
 
     <!-- Import App -->
-    <script>
-        const app = Vue.createApp({
-            data() {
-                return {
-                    cart: 0,
-                }
-            },
-            methods:{
-
-            }
-        });
-    </script>
+    <script src="main.js"></script>
  
     <!-- Import Components -->
     <script src="./components/ProductDisplay.js"></script>
