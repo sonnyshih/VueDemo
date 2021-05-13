@@ -1,6 +1,13 @@
 app.component("product-display", {
+    props:{
+        premium: {  
+            type: Boolean,
+            required: true
+        }
+    },
     template:
-    `        <!-- 動態載入圖片url -->
+    `
+    <!-- 動態載入圖片url -->
     <img :src="image"/><br>
     
     <!-- if else -->
@@ -23,6 +30,7 @@ app.component("product-display", {
             :style="{ backgroundColor: item.color}">
             {{ item.color }}</li>
     </ul>
+    <p>Shipping: {{shipping}}</p>
     `,
     data() {
         return {
@@ -62,6 +70,13 @@ app.component("product-display", {
             }
 
             return false;
+        },
+        shipping(){
+            if(this.premium){
+                return "Free"
+            }
+
+            return 2.99
         }
     }
 })
