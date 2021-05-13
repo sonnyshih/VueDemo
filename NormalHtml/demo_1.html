@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <script>
+        $(function(){
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        cart: 0,
+                        product: "Socks",
+                        brand: "Vue Mastery",
+                        selectVariant: 0,
+                        imagePath: "./assets/images/socks_green.jpg",
+                        urlPath: "https://wwww.google.com",
+                        inStock: false,
+                        inventory: 11,
+                        details: ["50% cotton", "30% wool", "20% polyester"],
+                        variants: [
+                            {id: 2234, color: "green", image:"./assets/images/socks_green.jpg", quantity:50 },
+                            {id: 2235, color: "blue", image:"./assets/images/socks_blue.jpg", quantity:0}
+                        ]
+                    }
+                },
+                methods:{
+                    addToCart(){
+                        this.cart += 1
+                    },
+                    removeFromCart(){
+                        this.cart -=1
+                    },
+                    updateImage(variantImage){
+                        this.imagePath = variantImage
+                    }
+
+                }
+            });
+
+            const mountedApp = app.mount('#app')
+
+        }); // End Function
+
+    </script>
+</head>
+<body>
+    <div id="app">
+        <!-- 顯示字串 -->
+        <h1>{{product}}</h1>
+
+        <!-- 動態載入圖片url -->
+        <img v-bind:src="imagePath"/><br>
+        <!-- 以上可以簡寫成下面 -->
+        <img :src="imagePath"/><br>
+        
+        <a v-bind:href="urlPath">我是連結1</a> <br>
+        <!-- 以上可以簡寫成下面 -->
+        <a :href="urlPath">我是連結2</a>
+
+        <!-- if else -->
+        <p v-if="inStock">In Stock</p>
+        <p v-else>Out of Stock</p>
+
+        <!-- if else if  -->
+        <p v-if="inventory > 10">數量超過 10</p>
+        <p v-else-if="inventory <= 10 & inventory>0">almost sold out</p>
+        <p v-else>Out of Stock</p>
+
+        <!-- show/ display -->
+        <p v-show="inStock">顯示</p>
+
+        <!-- List Render -->
+        <!-- Ex_1 -->
+        <ul>
+            <li v-for="item in details">{{ item }}</li>
+        </ul>
+
+        <!-- Ex_2 (Color)-->
+        <!--
+            說明: 
+                :style="{ backgroundColor: item.color}" 
+                而item.color是一個變數，如果它的值是green, 會變成 
+                style = "background-color: green"                 
+        -->
+        <ul>
+            <li v-for="item in variants" :key="item.id" 
+                @mouseover="updateImage(item.image)"
+                class="color-circle"
+                :style="{ backgroundColor: item.color}">
+                {{ item.color }}</li>
+        </ul>
+
+        <!-- Event -->
+        <div> Car({{cart}})</div>
+        <button v-on:Click="cart += 1"> Add to Cart</button> <br>
+        <button v-on:Click="addToCart"> Add to Cart (using function)</button><br>
+        <!-- 以上可以簡寫成下面 -->
+        <button @Click="addToCart"> Add to Cart (簡寫)</button><br>
+        <button @Click="removeFromCart"> Remove from Cart</button><br>
+        <br><br><br>
+    </div><!--./ app-->
+
+</body>
+</html>
